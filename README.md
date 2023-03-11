@@ -19,6 +19,7 @@ This is simple python macro script for LibreOffice to help you generate content 
 
 ## Need Help to Improve 
 - [ ] Add loading dialog or progressbar while macro waiting respons
+- [ ] Convert this script as extension(?)
 
 ## Disclaimers
 - Do with your own risk, i give no any warranty with this script, ('-_-').
