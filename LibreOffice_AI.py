@@ -28,9 +28,17 @@ def buat_konten():
             output_text = response.choices[0].text
             cursor = doc.getCurrentController().getViewCursor()
             docText = doc.Text
+            
+            # Set Selected Text as Title
+            text = textRange.getString()
+            text_with_newline = text + "\n"
+            textRange.setString(text_with_newline)
+            
             # insert Open AI respons to current document
-            docText.insertString(cursor, output_text, 0)
-            # Remove previous selected text
-            textRange.setString("")
+            docText.insertString(cursor, output_text, False)
+            
+            # Apply styling
+            textCursor = textRange.getText().createTextCursorByRange(textRange)
+            textCursor.setPropertyValue("CharWeight", 150) # set title bold
     else:
         return "Invalid selection"
