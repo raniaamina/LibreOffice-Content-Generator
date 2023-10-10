@@ -15,9 +15,9 @@ def buat_konten():
     if selection.supportsService("com.sun.star.text.TextRanges"):
         for textRange in selection:
             prompt = textRange.getString()
-            generated_text = f"Buatkan saya sebuah: {prompt}"
+            generated_text = f"{prompt}"
             response = openai.Completion.create(
-              model="text-davinci-003",
+              model="gpt-3.5-turbo-instruct",
               prompt=generated_text,
               temperature=0.85,
               max_tokens=1024,
