@@ -5,6 +5,7 @@ This is simple python macro script for LibreOffice to help you generate content 
 ## Requirements
 - APSO (Alternative Python Script Organizer), get here [Apso Gitlab](https://gitlab.com/jmzambon/apso/)
 - OpenAI API Key, get here: [OpenAI Platform](https://platform.openai.com/account/api-keys)
+- zenity for handle progressbar
 - Some Python Modules;
     - python-dotenv
     - openai
