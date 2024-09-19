@@ -19,7 +19,7 @@ This is simple python macro script for LibreOffice to help you generate content 
 - Write a sentences, select it, then run macro, [see this video](https://youtu.be/riSqE-5o8is)
 
 ## Need Help to Improve 
-- [ ] Add loading dialog or progressbar while macro waiting respons
+- [x] Add loading dialog or progressbar while macro waiting respons
 - [ ] Convert this script as extension(?)
 
 ## Disclaimers
