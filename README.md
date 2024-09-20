@@ -1,14 +1,22 @@
 # LibreOffice AI Content Generator
 
-This is simple python macro script for LibreOffice to help you generate content from selected words/sentences with OpenAI.  
+This is simple python macro script for LibreOffice to help you generate content from selected words/sentences with OpenAI. 
+The latest update allow you to do more;
+- Generate Content
+- Translate to other language
+- Summarize long content
+- Improve content
+- Other custom task (solve math question and much more)
 
 ## Requirements
 - APSO (Alternative Python Script Organizer), get here [Apso Gitlab](https://gitlab.com/jmzambon/apso/)
 - OpenAI API Key, get here: [OpenAI Platform](https://platform.openai.com/account/api-keys)
-- zenity for handle progressbar
+- zenity for handle progressbar (optional)
 - Some Python Modules;
     - python-dotenv
     - openai
+    - python-dotenv
+    - tkinter
 - Little knowledge of LibreOffice macros and python
 
 ## Usage
@@ -17,6 +25,7 @@ This is simple python macro script for LibreOffice to help you generate content 
 - Open LibreOffice Writer then, open Macros in Tools > Macros > Organize Python Scripts
 - Create new module, then copy and past content of LibreOffice_AI.py to your new module. Set the openai module path inside script if needed, and save it!
 - Write a sentences, select it, then run macro, [see this video](https://youtu.be/riSqE-5o8is)
+- [Update Video](https://youtu.be/nJqgQcosNjc)
 
 ## Need Help to Improve 
 - [x] Add loading dialog or progressbar while macro waiting respons
