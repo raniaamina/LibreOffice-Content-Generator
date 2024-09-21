@@ -1,9 +1,13 @@
 import os
 import sys
-sys.path.append('/path/to/python/openai/modules') #  use 'pip show openai' to get the path 
+# sys.path.append('/path/to/python/openai/modules') 
+
+## Hint:  use 'pip show openai' to get the path. This part usually used/needed when you're using Pyenv or Virtualenv in your system
 
 import openai
 import tkinter as tk
+from tkinter import ttk
+from ttkthemes import ThemedTk
 from dotenv import dotenv_values
 import threading
 import subprocess
@@ -27,7 +31,7 @@ def update_status(message):
     global zenity_process
     if is_zenity_available():
         progress_command = [
-            "bash", "-c", "GDK_BACKEND=x11 zenity --progress --text='%s' --pulsate --auto-close" % message
+            "bash", "-c", "GDK_BACKEND=x11 QT_QPA_PLATFORM=xcb zenity --progress --text='%s' --pulsate --auto-close" % message
         ]
         zenity_process = subprocess.Popen(progress_command)
 
@@ -47,7 +51,6 @@ def proses_teks(tugas, textRange, bahasa=None, custom_prompt=None):
     prompt = textRange.getString()
 
     genericRule = """
-    the response should be in Bahasa Indonesia by default otherwise I ask to use a specific language.
     ONLY ANSWER CONTENT
     DO NOT ADD ANY COMMENT INSIDE YOUR RESPONSES
     DO NOT ANSWER BY REPEATING THE REQUEST
@@ -89,9 +92,9 @@ def proses_teks(tugas, textRange, bahasa=None, custom_prompt=None):
         output_text = f"\nError: {str(e)}"
         print(output_text)
 
-    # Sisipkan hasil ke dokumen
+    # Insert output to the document
     cursor = doc.getCurrentController().getViewCursor()
-    textRange.setString(textRange.getString() + "\n")  # Tambahkan newline untuk memisahkan input dan output
+    textRange.setString(textRange.getString() + "\n") 
 
     # Insert OpenAI response to current document
     start_position = cursor.getText().getEnd()  # Save current cursor position before inserting text
@@ -111,8 +114,8 @@ def show_task_dialog(textRange):
     def on_submit():
         selected_task = task_var.get()
         selected_language = language_var.get()
-        custom_prompt = custom_entry.get()
-        
+        custom_prompt = custom_text.get("1.0", tk.END).strip()  # Get text from textarea
+
         if selected_task == "Translate" and not selected_language:
             status_label.config(text="Please enter a language/country name.")
         elif selected_task == "Custom Action" and not custom_prompt:
@@ -127,49 +130,90 @@ def show_task_dialog(textRange):
                 proses_teks(selected_task, textRange)
 
     # Setup Tkinter dialog
-    root = tk.Tk()
+    # root = tk.Tk()
+    root = ThemedTk()  # Ganti tk.Tk() dengan ThemedTk()
     root.title("Choose Action")
+    
+    # Theme Option: 'radiance', 'scidpurple', 'plastik', 'equilux', 'arc', 'adapta', 'scidblue', 'scidgrey', 'classic', 'scidmint', 'alt', 'black', 'keramik', 'breeze', 'default', 'aquativo', 'kroc', 'yaru', 'scidgreen', 'blue', 'scidpink', 'itft1', 'scidsand', 'clearlooks', 'elegance', 'smog', 'ubuntu', 'clam', 'winxpblue'
+    os_name = platform.system()
+    if os_name == "Windows":
+        root.set_theme("black")
+    elif os_name == "Linux":
+        root.set_theme("black")  
+    elif os_name == "Darwin":
+        root.set_theme("black")
 
-    task_label = tk.Label(root, text="Choose Action:")
-    task_label.grid(row=0, column=0, padx=10, pady=10)
+    root.geometry("500x300")
+    root.resizable(False, False)
+    root.attributes('-topmost', True)
+
+    notebook = tk.ttk.Notebook(root)
+    notebook.pack(fill="both", expand=True)
+
+    main_tab = tk.Frame(notebook)
+    about_tab = tk.Frame(notebook)
+    notebook.add(main_tab, text="Main")
+    notebook.add(about_tab, text="About")
+
+    # Configure the grid to expand columns and rows
+    main_tab.grid_columnconfigure(0, weight=1)
+    main_tab.grid_columnconfigure(1, weight=1)
+    main_tab.grid_rowconfigure(3, weight=1)  # Make the middle part expandable
+
+    # Task selection components
+    task_label = tk.Label(main_tab, text="Choose Action:")
+    task_label.grid(row=0, column=0, padx=10, pady=10, sticky="w")
 
     task_var = tk.StringVar()
     task_choices = ["Generate Content", "Translate", "Summarize", "Improve", "Custom Action"]
     task_var.set(task_choices[0])
-    task_dropdown = tk.OptionMenu(root, task_var, *task_choices)
-    task_dropdown.grid(row=0, column=1, padx=10, pady=10)
+    task_dropdown = tk.OptionMenu(main_tab, task_var, *task_choices)
+    task_dropdown.grid(row=0, column=1, padx=10, pady=10, sticky="ew")
 
-    language_label = tk.Label(root, text="Type Target Language (exm. English):")
+    # Language input for translation
+    language_label = tk.Label(main_tab, text="Type Target Language (ex. English):")
     language_var = tk.StringVar()
-    language_entry = tk.Entry(root, textvariable=language_var)
+    language_entry = tk.Entry(main_tab, textvariable=language_var)
 
-    custom_label = tk.Label(root, text="Enter custom request:")
-    custom_entry = tk.Entry(root)
+    # Custom prompt input as a textarea
+    custom_label = tk.Label(main_tab, text="What should AI do with this selected text?")
+    custom_text = tk.Text(main_tab, height=4)  # Multiline textarea
 
     def on_task_change(*args):
         if task_var.get() == "Translate":
-            language_label.grid(row=2, column=0, padx=10, pady=5)
-            language_entry.grid(row=2, column=1, padx=10, pady=5)
+            language_label.grid(row=2, column=0, padx=10, pady=5, sticky="w")
+            language_entry.grid(row=2, column=1, padx=10, pady=5, sticky="ew")
             custom_label.grid_forget()
-            custom_entry.grid_forget()
+            custom_text.grid_forget()
         elif task_var.get() == "Custom Action":
-            custom_label.grid(row=2, column=0, padx=10, pady=5)
-            custom_entry.grid(row=2, column=1, padx=10, pady=5)
+            custom_label.grid(row=2, column=0, padx=10, pady=0, sticky="w")
+            custom_text.grid(row=3, column=0, columnspan=2, padx=10, pady=5, sticky="ew")  # Adjust position
             language_label.grid_forget()
             language_entry.grid_forget()
         else:
             language_label.grid_forget()
             language_entry.grid_forget()
             custom_label.grid_forget()
-            custom_entry.grid_forget()
+            custom_text.grid_forget()
 
-    task_var.trace("w", on_task_change)  # Lacak perubahan pilihan tugas
+    task_var.trace("w", on_task_change)  # Track changes to the task option
 
-    submit_button = tk.Button(root, text="Apply", command=on_submit)
-    submit_button.grid(row=3, column=0, columnspan=2, padx=10, pady=10)
+    # Apply button at the bottom with full width
+    submit_button = tk.Button(main_tab, text="Apply", command=on_submit)
+    submit_button.grid(row=4, column=0, columnspan=2, padx=10, pady=10, sticky="ew")
+    
 
-    status_label = tk.Label(root, text="")
-    status_label.grid(row=4, column=0, columnspan=2, padx=10, pady=5)
+    # Status label
+    status_label = tk.Label(main_tab, text="")
+    status_label.grid(row=5, column=0, columnspan=2, padx=10, pady=5, sticky="ew")
+
+    # About tab content
+    about_label = tk.Label(about_tab, text="This is simple python macro script for LibreOffice by Rania Amina \nto help you generate content from selected words/sentences \nwith OpenAI. For more info, visit:")
+    about_label.pack(padx=10, pady=10)
+
+    github_link = tk.Label(about_tab, text="LibreOffice Content Generator GitHub Repository", fg="blue", cursor="hand2")
+    github_link.pack(padx=10, pady=10)
+    github_link.bind("<Button-1>", lambda e: os.system("xdg-open https://github.com/raniaamina/LibreOffice-Content-Generator"))
 
     root.mainloop()
 
