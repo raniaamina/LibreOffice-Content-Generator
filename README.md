@@ -1,5 +1,6 @@
 # LibreOffice AI Content Generator
 
+
 This is simple python macro script for LibreOffice to help you generate content from selected words/sentences with OpenAI. 
 The latest update allow you to do more;
 - Generate Content
@@ -8,6 +9,9 @@ The latest update allow you to do more;
 - Improve content
 - Other custom task (solve math question and much more)
 
+
+![Screenshot](/LibreOfficexOpenAI.png)
+
 ## Requirements
 - APSO (Alternative Python Script Organizer), get here [Apso Gitlab](https://gitlab.com/jmzambon/apso/)
 - OpenAI API Key, get here: [OpenAI Platform](https://platform.openai.com/account/api-keys)
@@ -15,8 +19,8 @@ The latest update allow you to do more;
 - Some Python Modules;
     - python-dotenv
     - openai
-    - python-dotenv
     - tkinter
+    - ttkthemes
 - Little knowledge of LibreOffice macros and python
 
 ## Usage
