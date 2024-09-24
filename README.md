@@ -35,6 +35,16 @@ The latest update allow you to do more;
 - [x] Add loading dialog or progressbar while macro waiting respons
 - [ ] Convert this script as extension(?)
 
+## Known Issues
+### Windows
+- I found that this script does not work well if the python version used on windows is not the same as the python that comes with LibreOffice by default. So the safest option to run this macro script on Windows (with the latest LibreOffice) is to install Python 3.9 standalone. You can directly download here: [Python 3.9.13](https://www.python.org/ftp/python/3.9.13/python-3.9.13-amd64.exe)
+
+- You can move .env file to any place as you want, then just edit the script like this (make sure to use double backslash in Windows when you write a path);
+
+```python 
+config = dotenv_values('''C:\\Users\\dev\\AppData\\Roaming\\LibreOffice\\4\\user\\.env''') 
+```
+
 ## Disclaimers
 - Do with your own risk, i give no any warranty with this script, ('-_-').
 - I just test this macros on Debian Linux (unstable) with latest LibreOffice, i can't sure this macro can run every where. Please ping me on ticket issue if you can run this macro on your operating system.
