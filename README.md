@@ -1,7 +1,7 @@
 # LibreOffice AI Content Generator
 
 
-This is simple python macro script for LibreOffice to help you generate content from selected words/sentences with OpenAI. 
+This is simple python macro script for LibreOffice to help you generate content from selected words/sentences with OpenAI or Google AI. 
 The latest update allow you to do more;
 - Generate Content
 - Translate to other language
