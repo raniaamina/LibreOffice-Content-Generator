@@ -9,8 +9,10 @@ The latest update allow you to do more;
 - Improve content
 - Other custom task (solve math question and much more)
 
+|   |   |
+|---|---|
+|![Screenshot](/LibreOfficexOpenAI.png)   |![Screenshot](/LibreOfficexAI.png)   |
 
-![Screenshot](/LibreOfficexOpenAI.png)
 
 ## Requirements
 - APSO (Alternative Python Script Organizer), get here [Apso Gitlab](https://gitlab.com/jmzambon/apso/)
@@ -19,15 +21,22 @@ The latest update allow you to do more;
 - Some Python Modules;
     - python-dotenv
     - openai
-    - tkinter
+    - google-generativeai
     - ttkthemes
 - Little knowledge of LibreOffice macros and python
 
 ## Usage
 - Install APSO extension first, if you don't know how to install LibreOffice extension DDG-ing first!
-- Rename sample.env to .env and save it to your $HOME directory. Don't forget to replace API Key with your own.
+- Rename sample.env to .env and save it to following directory (you may need create Scripts/python directory by yourself if not exist yet):
+    - Linux: `$HOME/.config/libreoffice/4/user/Scripts/python/.env`
+    - Windows: `%APPDATA%\LibreOffice\4\user\Scripts\python\.env`
+    - MacOS: `$HOME/Library/'Application Support'/LibreOffice/4/user/Scripts/python/.env`
+- Don't forget to replace API Key with your own.
 - Open LibreOffice Writer then, open Macros in Tools > Macros > Organize Python Scripts
-- Create new module, then copy and past content of LibreOffice_AI.py to your new module. Set the openai module path inside script if needed, and save it!
+- Just copy and paste LibreOfficexAi.py to following directory:
+    - Linux: `$HOME/.config/libreoffice/4/user/Scripts/python`
+    - Windows: `%APPDATA%\LibreOffice\4\user\Scripts\python`
+    - MacOS: `$HOME/Library/'Application Support'/LibreOffice/4/user/Scripts/python`
 - Write a sentences, select it, then run macro, [see this video](https://youtu.be/riSqE-5o8is)
 - [Update Video](https://youtu.be/nJqgQcosNjc)
 
