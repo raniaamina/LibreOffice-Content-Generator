@@ -17,6 +17,7 @@ The latest update allow you to do more;
 ## Requirements
 - APSO (Alternative Python Script Organizer), get here [Apso Gitlab](https://gitlab.com/jmzambon/apso/)
 - OpenAI API Key, get here: [OpenAI Platform](https://platform.openai.com/account/api-keys)
+- Google AI API Key, get here [Google AI](https://aistudio.google.com/app/apikey)
 - zenity for handle progressbar (optional)
 - Some Python Modules;
     - python-dotenv
